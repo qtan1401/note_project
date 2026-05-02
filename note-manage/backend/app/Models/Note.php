@@ -14,10 +14,29 @@ class Note extends Model
         'title',
         'content',
         'color',
+        'is_pinned',
+        'pinned_at',
+        'is_locked',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    protected $casts = [
+        'is_pinned' => 'boolean',
+        'is_locked' => 'boolean',
+        'pinned_at' => 'datetime',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function labels()
+    {
+        return $this->belongsToMany(Label::class, 'note_label');
     }
 }
